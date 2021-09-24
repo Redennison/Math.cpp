@@ -1,6 +1,7 @@
 #include<utility>
 #include<iostream>
 #include<vector>
+#include<string>
 #include<algorithm>
 #include<math.h>
 
@@ -8,9 +9,9 @@ using namespace std;
 
 class Polynomial {
     public:
-        vector<pair<int, int> > points;
+        vector<pair<double, double> > points;
         int V;
-        int lc;
+        string lc;
         int num_points; 
         int degree;
         void get_function();
@@ -28,11 +29,14 @@ void Polynomial::get_lc() {
     int n = 1;
     for (int i=1;i<=degree;i++)
         n *= i;
-    lc = V/n;
+    if (V%n == 0) 
+        lc = to_string(V/n);
+    else 
+        lc = to_string(V) + "/" + to_string(n);
 }
 
 void Polynomial::get_points() {
-    int x, y;
+    double x, y;
     cout << "Input # of points: ";
     cin >> num_points;
     // get x/y values of points
@@ -84,14 +88,14 @@ void Polynomial::get_function() {
     if (calc_degree()) {
         get_lc();
         if (degree == 1) {
-            if (lc == 1)
+            if (lc == "1")
                 cout << "f(x) = " << "x" << "\n";     
             else 
                 cout << "f(x) = " << lc << "x" << "\n";
         } else if (degree == 0) 
             cout << "f(x) = " << lc << "\n"; 
         else {
-            if (lc == 1)
+            if (lc == "1")
                 cout << "f(x) = " << "x^" << degree << "\n"; 
             else 
                 cout << "f(x) = " << lc << "x^" << degree << "\n";               
